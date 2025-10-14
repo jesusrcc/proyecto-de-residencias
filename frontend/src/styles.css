@@ -1,0 +1,121 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+  --primary:#2F51B5;
+  --accent:#00A896;
+  --bg:#F6F8FB;
+  --card:#FFFFFF;
+  --muted:#6B7280;
+  --line:#E6E9EF;
+  --radius:8px;
+  --gap:16px;
+  font-family: 'Inter', sans-serif;
+}
+*{box-sizing:border-box}
+body{ margin:0; background:var(--bg); color:#0f172a; -webkit-font-smoothing:antialiased; font-size:16px; font-family: 'Inter', sans-serif; }
+
+/* Layout */
+.app{ display:flex; min-height:100vh; }
+.sidebar{
+  width:240px;
+  background:var(--card);
+  padding:20px;
+  border-right:1px solid var(--line);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  display:flex; flex-direction:column; gap:12px;
+}
+.brand{ font-weight:600; color:var(--primary); font-size:18px; margin-bottom:4px;}
+.nav{ display:flex; flex-direction:column; gap:6px; margin-top:12px;}
+.nav button{ text-align:left; padding:10px 12px; border-radius:8px; background:transparent; border:0; cursor:pointer; color:var(--muted); display:flex; align-items:center; gap:10px; }
+.nav button.active{ background: rgba(47,81,181,0.08); color:var(--primary); font-weight:600; }
+.nav button .material-icons{ font-size:20px; }
+
+.main{ flex:1; display:flex; flex-direction:column; }
+.topbar{ height:64px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:transparent; border-bottom:1px solid transparent; }
+.search input{ padding:8px 12px; border-radius:8px; border:1px solid var(--line); width:320px; background:white; }
+.actions{ display:flex; gap:12px; align-items:center;}
+.avatar{ width:36px; height:36px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-weight:600; }
+
+.content{ padding:20px; display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap; }
+
+.card{ background:var(--card); padding:18px; border-radius:12px; box-shadow: 0 6px 18px rgba(15,23,42,0.04); border:1px solid var(--line); }
+
+.form { width:760px; max-width:100%; }
+.row{ display:flex; gap:12px; margin-bottom:12px; }
+.col{ flex:1; min-width:0; }
+label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
+input[type="text"], input[type="email"], input[type="date"], textarea, select{
+  width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:white;
+  font-size:14px;
+}
+textarea{ min-height:90px; resize:vertical; }
+
+.small-btn{ padding:6px 10px; border-radius:8px; border:0; cursor:pointer; background:var(--primary); color:white; }
+.ghost{ background:transparent; border:1px solid var(--line); color:var(--muted); }
+
+.section-title{ font-weight:600; margin:16px 0 8px 0; color:#16325c; display:flex; justify-content:space-between; align-items:center; }
+
+/* Timeline, CV, responsive, etc... (puedes añadir el resto que ya tenías) */
+/* Modal auth (centrado) */
+.auth-wrapper{
+  position: fixed;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(10,20,40,0.45);
+  z-index: 9999;
+}
+
+.auth-card{
+  width: 420px;
+  max-width: calc(100% - 32px);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.2);
+  padding: 18px;
+}
+
+.tabs{ display:flex; gap:8px; margin-bottom:12px; }
+.tabs button{
+  flex:1;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid transparent;
+  background: transparent;
+  cursor:pointer;
+}
+.tabs button.active{
+  background: linear-gradient(90deg,#2F51B5,#3B63D9);
+  color:white;
+  font-weight:600;
+}
+
+.content form{ display:flex; flex-direction:column; gap:8px; }
+.content label{ font-size:13px; color:#444; }
+.content input{
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid #e6e9ef;
+  font-size:14px;
+  width:100%;
+}
+.btn{
+  margin-top:6px;
+  padding:8px 10px;
+  background:#2F51B5;
+  color:white;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.ghost{
+  padding:8px 10px;
+  background:transparent;
+  border-radius:8px;
+  border:1px solid #e6e9ef;
+}
+.link-btn{
+  background:transparent;border:0;color:#2F51B5;cursor:pointer;font-weight:600;
+}
+.msg{ margin-top:10px; color:#333; font-size:14px; text-align:center; }
