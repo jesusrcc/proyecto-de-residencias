@@ -1,6 +1,12 @@
+// src/app/app.component.ts
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+// BORRA esta línea si la agregaste antes
+import { firstValueFrom } from 'rxjs';
+
 
 type Publication = { title: string; journal?: string; year?: string; };
 type Course = { name: string; institution?: string; date?: string; };
@@ -20,6 +26,10 @@ export class AppComponent implements OnInit {
   orcid = '';
   bio = '';
   photoUrl = '';
+  country = '';
+googleScholar = '';
+snip = '';
+
 
   publications: Publication[] = [];
   courses: Course[] = [];
@@ -50,6 +60,11 @@ export class AppComponent implements OnInit {
 
   // ViewChild for CV export
   @ViewChild('cvElement', { static: false }) cvElement!: ElementRef;
+
+  // backend base url
+  private backendUsersUrl = 'http://localhost:3000/users';
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.populateForm();
@@ -116,6 +131,65 @@ export class AppComponent implements OnInit {
       alert('No se pudo guardar localmente.');
     }
   }
+
+  // ------------------------
+  // NEW: Save to server (backend)
+  // ------------------------
+  // reemplaza el método saveServer() por esto
+async saveServer() {
+  const name = `${(this.firstName || '').trim()} ${(this.lastName || '').trim()}`.trim();
+  const payload: any = {
+    name: name || 'Sin nombre',
+    email: (this.email || '').trim().toLowerCase(),
+    curriculumUrl: this.photoUrl || null
+  };
+
+  if (!payload.email) {
+    alert('Debes ingresar un correo antes de guardar en el servidor.');
+    return;
+  }
+
+  try {
+    // llamamos al backend y convertimos la respuesta observable a Promise manualmente
+    const users: any[] = await new Promise<any[]>((resolve, reject) => {
+      this.http.get<any[]>(this.backendUsersUrl).subscribe({
+        next: data => resolve(data),
+        error: err => reject(err)
+      });
+    });
+
+    const existing = users.find(u => u.email && u.email.toLowerCase() === payload.email);
+
+    if (existing && existing.id) {
+      // actualizar (PUT)
+      await new Promise((resolve, reject) => {
+        this.http.put(`${this.backendUsersUrl}/${existing.id}`, payload).subscribe({
+          next: res => resolve(res),
+          error: err => reject(err)
+        });
+      });
+      alert('Perfil actualizado en el servidor.');
+    } else {
+      // crear (POST)
+      await new Promise((resolve, reject) => {
+        this.http.post(this.backendUsersUrl, payload).subscribe({
+          next: res => resolve(res),
+          error: err => reject(err)
+        });
+      });
+      alert('Perfil creado en el servidor.');
+    }
+  } catch (err: any) {
+    console.error('Error saving to server', err);
+    if (err?.status === 0) {
+      alert('No se pudo conectar al servidor. ¿El backend está levantado en http://localhost:3000 ?');
+    } else if (err?.error?.message) {
+      alert('Error servidor: ' + err.error.message);
+    } else {
+      alert('Error al guardar en el servidor (ver consola).');
+    }
+  }
+}
 
   // ------------------------
   // Form management
@@ -356,7 +430,11 @@ export class AppComponent implements OnInit {
   logoutFromUI() {
     if (!confirm('¿Cerrar sesión?')) return;
     try {
+      // Clear session and optionally all local auth users if you want to forget them
       localStorage.removeItem(this.AUTH_SESSION_KEY);
+      // NOTE: we *do not* erase AUTH_USERS_KEY so users remain available for login;
+      // if you want to remove saved users as well, uncomment:
+      // localStorage.removeItem(this.AUTH_USERS_KEY);
     } catch (e) { console.error(e); }
     this.refreshAuthUI();
     alert('Sesión cerrada.');

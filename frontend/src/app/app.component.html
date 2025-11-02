@@ -90,6 +90,27 @@
           </div>
         </div>
 
+        <!-- Nueva fila: País, Google Scholar y SNIP (no obligatorio) -->
+        <div class="row" style="margin-top:8px;">
+          <div class="col">
+            <label>País</label>
+            <!-- puedes cambiar a <select> con opciones si prefieres -->
+            <input [(ngModel)]="country" id="country" type="text" placeholder="México">
+          </div>
+
+          <div class="col">
+            <label>Google Scholar (URL)</label>
+            <input [(ngModel)]="googleScholar" id="googleScholar" type="url" placeholder="https://scholar.google.com/citations?user=...">
+          </div>
+        </div>
+
+        <div style="margin-top:8px; margin-bottom:12px;">
+          <label>SNIP / Snippet (opcional)</label>
+          <!-- campo libre para pegar código embed o texto del snippet; no obligatorio -->
+          <textarea [(ngModel)]="snip" id="snip" placeholder="Pega aquí el snippet o identificador (no obligatorio)" rows="3"></textarea>
+          <div class="muted" style="font-size:12px; margin-top:6px;">Este campo es opcional: puedes pegar un pequeño embed o identificador (por ejemplo, código HTML de un widget).</div>
+        </div>
+
         <div style="margin-bottom:12px;">
           <label>Biografía / Resumen</label>
           <textarea [(ngModel)]="bio" id="bio" placeholder="Resumen breve de la trayectoria"></textarea>
@@ -156,6 +177,8 @@
 
         <div class="actions-row">
           <button class="small-btn" (click)="saveLocal()">Guardar (local)</button>
+          <button class="small-btn" (click)="saveServer()">Guardar (server)</button>
+
           <button class="ghost" (click)="resetForm()">Borrar formulario</button>
           <div style="margin-left:auto;"><button class="small-btn" (click)="showView('cv')">Ver CV</button></div>
         </div>
@@ -169,7 +192,21 @@
           <div class="muted" id="cvAffil">Departamento / Institución</div>
           <div style="margin-top:10px; font-size:14px;">
             <div id="cvOrcid" class="muted">{{ orcid ? ('ORCID: ' + orcid) : '' }}</div>
+            <div id="cvCountry" class="muted" *ngIf="country" style="margin-top:6px">País: {{ country }}</div>
+
             <div id="cvEmail" class="muted" style="margin-top:6px">{{ email }}</div>
+
+            <!-- Google Scholar: show as link when provided -->
+            <div *ngIf="googleScholar" style="margin-top:6px;">
+              <a [href]="googleScholar" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+            </div>
+
+            <!-- SNIP snippet: si hay contenido, mostrarlo (se asume texto/HTML pequeño) -->
+            <div id="cvSnip" *ngIf="snip" style="margin-top:8px;">
+              <div class="muted" style="font-size:12px; margin-bottom:6px;">SNIP / Snippet:</div>
+              <!-- Si quieres interpretar HTML embebido, reemplaza innerText por innerHTML en TS con sanitización -->
+              <div style="font-size:13px; white-space:pre-wrap;">{{ snip }}</div>
+            </div>
           </div>
         </aside>
 
