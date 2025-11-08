@@ -1,34 +1,51 @@
+// FILE: src/users/users.service.ts
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectRepository(User)
-    private readonly usersRepo: Repository<User>,
-  ) {}
+  constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
-  async create(userData: Partial<User>): Promise<User> {
-    const user = this.usersRepo.create(userData);
-    return this.usersRepo.save(user);
+  findAll() {
+    return this.repo.find();
   }
 
-  async findAll(): Promise<User[]> {
-    return this.usersRepo.find();
+  findByEmail(email: string) {
+    return this.repo.findOne({ where: { email }});
   }
 
-  async findOne(id: number): Promise<User | null> {
-    return this.usersRepo.findOneBy({ id });
+  findByPublicId(publicId: string) {
+    return this.repo.findOne({ where: { publicId }});
   }
 
-  async update(id: number, changes: Partial<User>): Promise<User | null> {
-    await this.usersRepo.update(id, changes);
-    return this.findOne(id); // devuelve la entidad actualizada (o null si no existe)
+  findOne(id: number) {
+    return this.repo.findOne({ where: { id }});
   }
 
-  async delete(id: number): Promise<void> {
-    await this.usersRepo.delete(id);
+  async create(payload: Partial<User>) {
+    const user = this.repo.create({
+      ...payload,
+      publicId: payload.publicId || uuidv4()
+    });
+    return this.repo.save(user);
+  }
+
+  async update(id: number, payload: Partial<User>) {
+    await this.repo.update(id, payload);
+    return this.findOne(id);
+  }
+
+  async upsertByEmail(email: string, payload: Partial<User>) {
+    let u = await this.findByEmail(email);
+    if (!u) {
+      u = await this.create({ email, ...payload });
+    } else {
+      await this.update(u.id, payload);
+      u = await this.findOne(u.id);
+    }
+    return u;
   }
 }

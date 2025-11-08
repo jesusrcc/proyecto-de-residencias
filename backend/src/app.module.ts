@@ -1,9 +1,14 @@
-// src/app.module.ts
+// FILE: src/app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
+import { AuthModule } from './auth/auth.module';
+
+import { ProfilesController } from './profiles/profiles.controller';
+import { PublicController } from './public/public.controller';
+import { UploadController } from './upload/upload.controller';
 
 @Module({
   imports: [
@@ -12,23 +17,21 @@ import { User } from './users/user.entity';
       envFilePath: '.env',
     }),
 
-    // Con autoLoadEntities: true suele bastar si registras entidades con forFeature en los módulos.
-    // Dejo también `entities: [User]` para evitar warnings/errores si TypeORM no detecta la entidad.
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST || 'localhost',
       port: parseInt(process.env.DB_PORT || '3306', 10),
-      username: process.env.DB_USER || process.env.DB_USERNAME || 'root',
-      password: process.env.DB_PASSWORD || 'Puchunga11',
-      database:
-        process.env.DB_NAME || process.env.DB_DATABASE || 'mi_proyecto_db',
+      username: process.env.DB_USER, // leemos de .env (sin default peligroso)
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME || 'mi_proyecto_db',
       entities: [User],
       autoLoadEntities: true,
       synchronize: true, // SOLO en desarrollo
     }),
 
-    // <-- IMPORTANT: el módulo UsersModule debe estar en imports si lo importaste arriba
     UsersModule,
+    AuthModule,
   ],
+  controllers: [ProfilesController, PublicController, UploadController],
 })
 export class AppModule {}

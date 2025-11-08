@@ -1,41 +1,32 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Put,
-  Delete,
-} from '@nestjs/common';
+// FILE: src/users/users.controller.ts
+import { Controller, Get, Post, Put, Query, Param, Body, NotFoundException } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { User } from './user.entity';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
-
-  @Post()
-  create(@Body() body: Partial<User>) {
-    return this.usersService.create(body);
-  }
+  constructor(private svc: UsersService) {}
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async list(@Query('email') email?: string) {
+    if (email) {
+      const u = await this.svc.findByEmail(email);
+      return u ? [u] : [];
+    }
+    return this.svc.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(parseInt(id, 10));
+  @Post()
+  async create(@Body() payload: any) {
+    const u = await this.svc.create(payload);
+    return u;
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() body: Partial<User>) {
-    return this.usersService.update(parseInt(id, 10), body);
-  }
-
-  @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.usersService.delete(parseInt(id, 10));
+  async update(@Param('id') id: string, @Body() payload: any) {
+    const userId = parseInt(id, 10);
+    const exists = await this.svc.findOne(userId);
+    if (!exists) throw new NotFoundException('Usuario no encontrado');
+    const updated = await this.svc.update(userId, payload);
+    return updated;
   }
 }

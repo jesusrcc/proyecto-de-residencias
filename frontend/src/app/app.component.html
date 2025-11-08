@@ -18,9 +18,7 @@
     <header class="topbar">
       <div class="search"><input [(ngModel)]="searchQuery" id="searchInput" placeholder="Buscar (publicación, curso...)"></div>
       <div class="actions">
-        <button class="ghost" (click)="saveLocal()">Guardar (local)</button>
-
-        <!-- abrir modal (login/register) -->
+        <!-- botón de login/registro -->
         <button id="loginBtnTop" class="ghost" (click)="openAuth('login')">
           {{ session?.name ? firstNameShort : 'Login' }}
         </button>
@@ -90,11 +88,9 @@
           </div>
         </div>
 
-        <!-- Nueva fila: País, Google Scholar y SNIP (no obligatorio) -->
         <div class="row" style="margin-top:8px;">
           <div class="col">
             <label>País</label>
-            <!-- puedes cambiar a <select> con opciones si prefieres -->
             <input [(ngModel)]="country" id="country" type="text" placeholder="México">
           </div>
 
@@ -106,7 +102,6 @@
 
         <div style="margin-top:8px; margin-bottom:12px;">
           <label>SNIP / Snippet (opcional)</label>
-          <!-- campo libre para pegar código embed o texto del snippet; no obligatorio -->
           <textarea [(ngModel)]="snip" id="snip" placeholder="Pega aquí el snippet o identificador (no obligatorio)" rows="3"></textarea>
           <div class="muted" style="font-size:12px; margin-top:6px;">Este campo es opcional: puedes pegar un pequeño embed o identificador (por ejemplo, código HTML de un widget).</div>
         </div>
@@ -176,7 +171,6 @@
         </ul>
 
         <div class="actions-row">
-          <button class="small-btn" (click)="saveLocal()">Guardar (local)</button>
           <button class="small-btn" (click)="saveServer()">Guardar (server)</button>
 
           <button class="ghost" (click)="resetForm()">Borrar formulario</button>
@@ -204,7 +198,6 @@
             <!-- SNIP snippet: si hay contenido, mostrarlo (se asume texto/HTML pequeño) -->
             <div id="cvSnip" *ngIf="snip" style="margin-top:8px;">
               <div class="muted" style="font-size:12px; margin-bottom:6px;">SNIP / Snippet:</div>
-              <!-- Si quieres interpretar HTML embebido, reemplaza innerText por innerHTML en TS con sanitización -->
               <div style="font-size:13px; white-space:pre-wrap;">{{ snip }}</div>
             </div>
           </div>
