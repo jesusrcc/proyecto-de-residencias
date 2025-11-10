@@ -2,6 +2,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { User } from '../entities/user.entity';
+import { UserController } from '../controllers/user.controller';
+import { UserService } from '../services/user.service';
+import { AuthController } from '../auth/auth.controller';
+import { AuthService } from '../auth/auth.service';
+import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -20,7 +26,10 @@ import { ConfigModule } from '@nestjs/config';
       autoLoadEntities: true,
       synchronize: true, // SOLO en desarrollo
     }),
+    TypeOrmModule.forFeature([User]),
+    AuthModule,
   ],
-  controllers: [],
+  controllers: [UserController],
+  providers: [UserService],
 })
 export class AppModule {}

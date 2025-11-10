@@ -4,6 +4,7 @@
     "jspdf": "^3.0.3"
   },
   "devDependencies": {
-    "@angular/cli": "^16.2.16"
+    "@angular/cli": "^16.2.16",
+    "@types/uuid": "^11.0.0"
   }
 }

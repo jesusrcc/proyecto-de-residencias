@@ -1,6 +1,5 @@
 // FILE: src/entities/user.entity.ts
 import { Entity, Column, BeforeInsert } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
 import { BaseEntity } from './base.entity';
 
 @Entity('users')
@@ -46,12 +45,4 @@ export class User extends BaseEntity {
 
   @Column({ type: 'simple-json', nullable: true })
   milestones?: Record<string, any>[];
-
-  @Column({ unique: true })
-  publicId!: string;
-
-  @BeforeInsert()
-  generatePublicId() {
-    this.publicId = uuidv4();
-  }
 }
