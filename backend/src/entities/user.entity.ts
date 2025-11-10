@@ -1,60 +1,57 @@
-// FILE: src/users/user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+// FILE: src/entities/user.entity.ts
+import { Entity, Column, BeforeInsert } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
+import { BaseEntity } from './base.entity';
 
 @Entity('users')
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class User extends BaseEntity {
   @Column({ unique: true })
-  email: string;
+  email!: string;
 
   @Column({ nullable: true })
-  name: string;
+  name?: string;
 
   @Column({ nullable: true })
-  firstName: string;
+  firstName?: string;
 
   @Column({ nullable: true })
-  lastName: string;
+  lastName?: string;
 
   @Column({ nullable: true })
-  passwordHash: string;
+  passwordHash?: string;
 
   @Column({ nullable: true })
-  orcid: string;
+  orcid?: string;
 
   @Column({ type: 'text', nullable: true })
-  bio: string;
+  bio?: string;
 
   @Column({ nullable: true })
-  photoUrl: string;
+  photoUrl?: string;
 
   @Column({ nullable: true })
-  country: string;
+  country?: string;
 
   @Column({ nullable: true })
-  googleScholar: string;
+  googleScholar?: string;
 
   @Column({ type: 'text', nullable: true })
-  snip: string;
+  snip?: string;
 
   @Column({ type: 'simple-json', nullable: true })
-  publications: any;
+  publications?: Record<string, any>[];
 
   @Column({ type: 'simple-json', nullable: true })
-  courses: any;
+  courses?: Record<string, any>[];
 
   @Column({ type: 'simple-json', nullable: true })
-  milestones: any;
+  milestones?: Record<string, any>[];
 
   @Column({ unique: true })
-  publicId: string = uuidv4();
+  publicId!: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @BeforeInsert()
+  generatePublicId() {
+    this.publicId = uuidv4();
+  }
 }

@@ -2,7 +2,7 @@
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './modules/app.module';
 import * as express from 'express';
 import { join } from 'path';
 import { ValidationPipe } from '@nestjs/common';
