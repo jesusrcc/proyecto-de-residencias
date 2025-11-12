@@ -1,4 +1,3 @@
-// FILE: src/auth/auth.module.ts
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
@@ -7,14 +6,20 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { User } from '../entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }), // 👈 Importa ConfigModule aquí también
     TypeOrmModule.forFeature([User]),
     PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET || 'Puchunga11',
-      signOptions: { expiresIn: '7d' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => ({
+        secret: config.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '7d' },
+      }),
     }),
   ],
   controllers: [AuthController],

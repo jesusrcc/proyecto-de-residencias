@@ -7,13 +7,15 @@ import {
   Param,
   Body,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { ObjectLiteral, DeepPartial } from 'typeorm';
 import { BaseService } from '../services/app.service';
-
+import { JwtAuthGuard } from '../auth/jwt.guard';
+@UseGuards(JwtAuthGuard)
 export class BaseController<T extends ObjectLiteral> {
   constructor(protected readonly baseService: BaseService<T>) {}
-
+  
   @Get()
   async findAll() {
     return this.baseService.findAll();
