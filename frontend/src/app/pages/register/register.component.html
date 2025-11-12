@@ -1,0 +1,64 @@
+<section class="login">
+  <div class="login-card">
+    <h1>Crear cuenta</h1>
+
+    <form (ngSubmit)="submit()" class="form">
+      <label>Nombre(s) <span class="required">*</span></label>
+      <input [(ngModel)]="user.name" name="name" type="text" required placeholder="Ej. Alan Omar" />
+
+      <label>Primer apellido <span class="required">*</span></label>
+      <input [(ngModel)]="user.firstName" name="firstName" type="text" required placeholder="Ej. Tejeda" />
+
+      <label>Segundo apellido <span class="required">*</span></label>
+      <input [(ngModel)]="user.lastName" name="lastName" type="text" required placeholder="Ej. Flores" />
+
+      <label>Correo <span class="required">*</span></label>
+      <input [(ngModel)]="user.email" name="email" type="email" required placeholder="correo@dominio.com" />
+
+      <label>Contraseña <span class="required">*</span></label>
+      <input [(ngModel)]="user.password" name="password" type="password" required placeholder="••••••••" />
+
+      <label>Confirmar contraseña <span class="required">*</span></label>
+      <input [(ngModel)]="password2" name="password2" type="password" required placeholder="••••••••" />
+
+      <label>País <span class="required">*</span></label>
+      <input [(ngModel)]="user.country" name="country" required placeholder="México" />
+
+      <label>Foto (URL) <span class="required">*</span></label>
+      <input [(ngModel)]="user.photoUrl" name="photoUrl" required placeholder="https://..." />
+
+      <label>ORCID</label>
+      <input [(ngModel)]="user.orcid" name="orcid" placeholder="0000-0000-0000-0000" />
+
+      <label>Google Scholar</label>
+      <input [(ngModel)]="user.googleScholar" name="googleScholar" placeholder="https://scholar.google.com/..." />
+
+      <label>Biografía</label>
+      <textarea
+        [(ngModel)]="user.bio"
+        name="bio"
+        rows="3"
+        placeholder="Escribe una breve descripción de tu trayectoria"
+      ></textarea>
+
+      <label>Snippet</label>
+      <textarea
+        [(ngModel)]="user.snip"
+        name="snip"
+        rows="2"
+        placeholder="Texto o embed de tu perfil público"
+      ></textarea>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Registrando…' : 'Registrar' }}
+      </button>
+
+      <p class="error" *ngIf="message">{{ message }}</p>
+    </form>
+
+    <p class="help">
+      ¿Ya tienes cuenta?
+      <a routerLink="/login">Inicia sesión</a>
+    </p>
+  </div>
+</section>

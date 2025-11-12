@@ -1,0 +1,9 @@
+<div class="dashboard card">
+  <h1>Bienvenido, {{ user?.name || user?.email }}</h1>
+  <p>Tu sesión está activa.</p>
+
+  <div style="margin-top:20px;">
+    <button class="small-btn" routerLink="/login">Ir al Login</button>
+    <button class="ghost" (click)="logout()">Cerrar sesión</button>
+  </div>
+</div>
