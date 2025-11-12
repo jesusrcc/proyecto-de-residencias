@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../shared/services/authentication.service';
 import { User } from '../../shared/interface';
-import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-
-const SESSION_KEY = 'identidad_session_v1';
 
 @Component({
   selector: 'app-register',
@@ -12,54 +10,79 @@ const SESSION_KEY = 'identidad_session_v1';
 })
 export class RegisterComponent {
   user: User = {
-    email: '',
-    password: '',
     name: '',
     firstName: '',
     lastName: '',
-    bio: '',
+    email: '',
     country: '',
-    orcid: '',
-    googleScholar: '',
-    photoUrl: '',
-    snip: '',
+    password: '',
   };
 
   password2 = '';
   loading = false;
   message = '';
 
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
+
+  isPasswordStrong(password: string): boolean {
+    const regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return regex.test(password);
+  }
+
+  get hasMinLength(): boolean {
+    return (this.user.password || '').length >= 8;
+  }
+
+  get hasUppercase(): boolean {
+    return /[A-Z]/.test(this.user.password || '');
+  }
+
+  get hasNumber(): boolean {
+    return /\d/.test(this.user.password || '');
+  }
+
+  passwordsMatch(): boolean {
+    return (
+      this.user.password === this.password2 &&
+      this.isPasswordStrong(this.user.password)
+    );
+  }
+  // ✅ Lista de dominios permitidos
+  private allowedDomains = [
+    'gmail.com',
+    'outlook.com',
+    'hotmail.com',
+    'itescam.edu.mx',
+    'icloud.com',
+    'yahoo.com'
+  ];
+
+  // ✅ Valida formato y dominio del correo
+  isEmailValid(): boolean {
+    if (!this.user.email) return false;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.user.email)) return false;
+
+    const domain = this.user.email.split('@')[1]?.toLowerCase();
+    return this.allowedDomains.includes(domain);
+  }
+
 
   submit() {
+    if (!this.passwordsMatch()) {
+      this.message = 'Las contraseñas no coinciden o son demasiado cortas.';
+      return;
+    }
+
     this.message = '';
-
-    if (!this.user.name || !this.user.firstName || !this.user.email || !this.user.password) {
-      this.message = 'Completa todos los campos obligatorios.';
-      return;
-    }
-
-    if (this.user.password!.length < 6) {
-      this.message = 'La contraseña debe tener al menos 6 caracteres.';
-      return;
-    }
-
-    if (this.user.password !== this.password2) {
-      this.message = 'Las contraseñas no coinciden.';
-      return;
-    }
-
     this.loading = true;
+
     this.authService.register(this.user).subscribe({
-      next: (resp: any) => {
-        const token = resp?.token;
-        const user = resp?.user || this.user;
-        if (!token) {
-          this.message = 'No se recibió token del servidor.';
-          this.loading = false;
-          return;
-        }
-        localStorage.setItem(SESSION_KEY, JSON.stringify({ ...user, token }));
+      next: () => {
         this.message = 'Registro exitoso. Redirigiendo...';
         setTimeout(() => this.router.navigate(['/dashboard']), 1200);
       },

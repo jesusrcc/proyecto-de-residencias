@@ -132,3 +132,47 @@ button[disabled] {
   color: #ff7a00;
   font-weight: bold;
 }
+button {
+  background: #ccc;
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.25s, transform 0.1s;
+  margin-top: 6px;
+}
+
+button.active {
+  background: #f57c00;
+}
+
+button.active:hover {
+  background: #ff9800;
+  transform: translateY(-1px);
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.password-hint {
+  font-size: 13px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.password-hint p {
+  margin: 2px 0;
+  transition: color 0.2s;
+}
+
+.password-hint .valid {
+  color: #22c55e; /* verde */
+}
+
+.password-hint .invalid {
+  color: #ef4444; /* rojo */
+}

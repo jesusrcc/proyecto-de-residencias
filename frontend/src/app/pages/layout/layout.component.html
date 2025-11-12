@@ -1,0 +1,45 @@
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Identidad Académica</h2>
+    <p class="subtitle">Plataforma de gestión de trayectoria</p>
+
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <i class="fa-solid fa-chart-bar"></i> Dashboard
+      </a>
+      <a routerLink="/formulario" routerLinkActive="active">
+        <i class="fa-solid fa-pen-to-square"></i> Formulario
+      </a>
+      <a routerLink="/cv" routerLinkActive="active">
+        <i class="fa-solid fa-id-card"></i> Mi CV
+      </a>
+      <a routerLink="/timeline" routerLinkActive="active">
+        <i class="fa-solid fa-chart-line"></i> Línea de tiempo
+      </a>
+      <a routerLink="/export" routerLinkActive="active">
+        <i class="fa-solid fa-file-export"></i> Exportar CV
+      </a>
+    </nav>
+
+    <div class="user-info">
+      Usuario: <strong>{{ user?.name || 'Invitado' }}</strong>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="content">
+    <header class="topbar">
+      <input type="text" placeholder="Buscar (publicación, curso…)" />
+      <div class="actions">
+        <button (click)="logout()" class="ghost">Cerrar sesión</button>
+        <div class="avatar">{{ getInitials() }}</div>
+      </div>
+    </header>
+
+    <section class="page-content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
+s

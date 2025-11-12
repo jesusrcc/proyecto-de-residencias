@@ -1,0 +1,118 @@
+.form-container {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 900px;
+  margin: 30px auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+  color: #1a237e;
+  margin-bottom: 20px;
+}
+
+/* ---------- Fieldset limpio ---------- */
+fieldset {
+  border: none; /* Quitamos borde predeterminado */
+  border-top: 2px solid #e0e0e0;
+  margin-top: 25px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+legend {
+  font-weight: 600;
+  color: #1a237e;
+  padding: 0 5px;
+}
+
+/* ---------- Campos ---------- */
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+.field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.field label {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 8px;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: #1e40af;
+  outline: none;
+}
+
+/* ---------- Repetidores (Publicaciones, Cursos, Hitos) ---------- */
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.add-btn,
+.remove-btn {
+  background: #1e40af;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background: #2b50d1;
+}
+
+.remove-btn {
+  background: #c62828;
+}
+
+.remove-btn:hover {
+  background: #e53935;
+}
+
+/* ---------- Botón principal ---------- */
+button[type="submit"] {
+  margin-top: 20px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button[disabled] {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* ---------- Mensaje ---------- */
+.success {
+  color: #2e7d32;
+  margin-top: 10px;
+  font-weight: 500;
+}

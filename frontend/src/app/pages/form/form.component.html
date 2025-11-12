@@ -1,0 +1,147 @@
+<div class="form-container">
+  <h1>Formulario de investigador</h1>
+
+  <form (ngSubmit)="save()" class="form">
+    <!-- ================= DATOS PERSONALES ================= -->
+    <fieldset>
+      <legend>Datos personales</legend>
+
+      <div class="row">
+        <div class="field">
+          <label>Nombre</label>
+          <input [(ngModel)]="user.name" name="name" type="text" required />
+        </div>
+        <div class="field">
+          <label>Primer apellido</label>
+          <input [(ngModel)]="user.firstName" name="firstName" type="text" required />
+        </div>
+        <div class="field">
+          <label>Segundo apellido</label>
+          <input [(ngModel)]="user.lastName" name="lastName" type="text" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Correo electrónico</label>
+          <input [(ngModel)]="user.email" name="email" type="email" disabled />
+        </div>
+        <div class="field">
+          <label>País</label>
+          <input [(ngModel)]="user.country" name="country" type="text" required />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>ORCID</label>
+          <input [(ngModel)]="user.orcid" name="orcid" placeholder="0000-0000-0000-0000" />
+        </div>
+        <div class="field">
+          <label>Google Scholar</label>
+          <input [(ngModel)]="user.googleScholar" name="googleScholar" placeholder="https://scholar.google.com/..." />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Biografía / Resumen</label>
+        <textarea [(ngModel)]="user.bio" name="bio" rows="3" placeholder="Escribe una breve descripción..."></textarea>
+      </div>
+    </fieldset>
+
+    <!-- ================= PUBLICACIONES ================= -->
+    <fieldset>
+      <legend>Publicaciones</legend>
+
+      <div *ngFor="let pub of user.publications; let i = index" class="item-row">
+        <input
+          [(ngModel)]="pub.title"
+          name="pubTitle{{ i }}"
+          placeholder="Título de la publicación"
+        />
+        <input
+          type="date"
+          [(ngModel)]="pub.date"
+          name="pubDate{{ i }}"
+          (keydown)="$event.preventDefault()"
+          (paste)="$event.preventDefault()"
+          (drop)="$event.preventDefault()"
+          min="1950-01-01"
+          [max]="today"
+        />
+        <button type="button" class="remove-btn" (click)="removeItem('publications', i)">Eliminar</button>
+      </div>
+
+      <button type="button" class="add-btn" (click)="addItem('publications')">Agregar</button>
+    </fieldset>
+
+    <!-- ================= CURSOS ================= -->
+    <fieldset>
+      <legend>Cursos y formación</legend>
+
+      <div *ngFor="let course of user.courses; let i = index" class="item-row">
+        <input
+          [(ngModel)]="course.title"
+          name="courseTitle{{ i }}"
+          placeholder="Nombre del curso o formación"
+        />
+        <input
+          [(ngModel)]="course.institution"
+          name="courseInstitution{{ i }}"
+          placeholder="Institución"
+        />
+        <input
+          type="date"
+          [(ngModel)]="course.date"
+          name="courseDate{{ i }}"
+          (keydown)="$event.preventDefault()"
+          (paste)="$event.preventDefault()"
+          (drop)="$event.preventDefault()"
+          min="1950-01-01"
+          [max]="today"
+        />
+        <button type="button" class="remove-btn" (click)="removeItem('courses', i)">Eliminar</button>
+      </div>
+
+      <button type="button" class="add-btn" (click)="addItem('courses')">Agregar</button>
+    </fieldset>
+
+    <!-- ================= HITOS ================= -->
+    <fieldset>
+      <legend>Hitos / Trayectoria</legend>
+
+      <div *ngFor="let milestone of user.milestones; let i = index" class="item-row">
+        <input
+          [(ngModel)]="milestone.title"
+          name="mileTitle{{ i }}"
+          placeholder="Título o evento"
+        />
+        <input
+          type="date"
+          [(ngModel)]="milestone.date"
+          name="mileDate{{ i }}"
+          (keydown)="$event.preventDefault()"
+          (paste)="$event.preventDefault()"
+          (drop)="$event.preventDefault()"
+          min="1950-01-01"
+          [max]="today"
+        />
+        <select [(ngModel)]="milestone.type" name="mileType{{ i }}">
+          <option value="Puesto">Puesto</option>
+          <option value="Publicación">Publicación</option>
+          <option value="Curso">Curso</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <button type="button" class="remove-btn" (click)="removeItem('milestones', i)">Eliminar</button>
+      </div>
+
+      <button type="button" class="add-btn" (click)="addItem('milestones')">Agregar</button>
+    </fieldset>
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Guardando...' : 'Guardar cambios' }}
+    </button>
+
+    <p class="success" *ngIf="message">{{ message }}</p>
+  </form>
+</div>

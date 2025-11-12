@@ -1,4 +1,3 @@
-// FILE: src/auth/auth.service.ts
 import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,24 +13,43 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(email: string, password: string) {
+  /** ✅ Registro */
+  async register(email: string, password: string, name?: string, firstName?: string, lastName?: string, country?: string) {
     const existing = await this.userRepo.findOne({ where: { email } });
     if (existing) throw new BadRequestException('El correo ya está registrado');
 
     const hashed = await bcrypt.hash(password, 10);
-    const user = this.userRepo.create({ email, passwordHash: hashed });
-    await this.userRepo.save(user);
+    const user = this.userRepo.create({
+      email,
+      passwordHash: hashed,
+      name,
+      firstName,
+      lastName,
+      country,
+    });
 
+    await this.userRepo.save(user);
     const token = await this.signToken(user);
     return { user, token };
   }
 
+  /** ✅ Login */
   async login(email: string, password: string) {
     const user = await this.userRepo.findOne({ where: { email } });
-    if (!user) throw new UnauthorizedException('Credenciales inválidas');
+    if (!user) {
+      throw new UnauthorizedException({
+        error: 'USER_NOT_FOUND',
+        message: 'El correo no está registrado.',
+      });
+    }
 
     const valid = await bcrypt.compare(password, user.passwordHash || '');
-    if (!valid) throw new UnauthorizedException('Credenciales inválidas');
+    if (!valid) {
+      throw new UnauthorizedException({
+        error: 'INVALID_PASSWORD',
+        message: 'La contraseña es incorrecta.',
+      });
+    }
 
     const token = await this.signToken(user);
     return { user, token };

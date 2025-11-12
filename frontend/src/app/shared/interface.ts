@@ -1,3 +1,28 @@
+// ======================
+// Submodelos tipados
+// ======================
+
+export interface Publication {
+  title?: string;
+  date?: string;
+}
+
+export interface Course {
+  title?: string;
+  institution?: string;
+  date?: string;
+}
+
+export interface Milestone {
+  title?: string;
+  date?: string;   // o Date si en backend viene como ISO
+  type?: string;
+}
+
+// ======================
+// Modelo principal de usuario
+// ======================
+
 export interface User {
   id?: number;
   email: string;
@@ -7,15 +32,18 @@ export interface User {
   lastName?: string;
   orcid?: string;
   bio?: string;
-  photoUrl?: string;
   country?: string;
   googleScholar?: string;
-  snip?: string;
-  publications?: Array<Record<string, any>>;
-  courses?: Array<Record<string, any>>;
-  milestones?: Array<Record<string, any>>;
+  publications?: Publication[];
+  courses?: Course[];
+  milestones?: Milestone[];
   token?: string;
 }
+
+// ======================
+// Respuesta del backend
+// ======================
+
 export interface AuthResponse {
   token: string;
   user: User;
