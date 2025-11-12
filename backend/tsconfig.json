@@ -1,4 +1,3 @@
-// tsconfig.json (archivo en la raíz del backend)
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -15,7 +14,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
-    "incremental": true
+    "incremental": true,
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["node"]
   },
   "exclude": ["node_modules", "dist", "test"]
 }
