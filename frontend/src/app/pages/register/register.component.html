@@ -4,13 +4,13 @@
 
     <form (ngSubmit)="submit()" class="form">
       <label>Nombre(s) <span class="required">*</span></label>
-      <input [(ngModel)]="user.name" name="name" type="text" required placeholder="Ej. Alan Omar" />
+      <input [(ngModel)]="user.name" name="name" type="text" required />
 
       <label>Primer apellido <span class="required">*</span></label>
-      <input [(ngModel)]="user.firstName" name="firstName" type="text" required placeholder="Ej. Tejeda" />
+      <input [(ngModel)]="user.firstName" name="firstName" type="text" required />
 
       <label>Segundo apellido <span class="required">*</span></label>
-      <input [(ngModel)]="user.lastName" name="lastName" type="text" required placeholder="Ej. Flores" />
+      <input [(ngModel)]="user.lastName" name="lastName" type="text" required/>
 
       <label>Correo <span class="required">*</span></label>
       <input [(ngModel)]="user.email" name="email" type="email" required placeholder="correo@dominio.com" />
