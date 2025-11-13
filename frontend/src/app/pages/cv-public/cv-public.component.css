@@ -1,34 +1,52 @@
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
 .cv-container {
   background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 3rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   max-width: 900px;
   margin: 2rem auto;
   font-family: "Segoe UI", sans-serif;
   color: #333;
+  box-sizing: border-box;
+
+  /* Soluciona textos largos */
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
+/* Aplicar también a TODOS los hijos */
+.cv-container * {
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+
+/* ==========================================
+   HEADER
+   ========================================== */
 .cv-header {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 1.8rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-/* Imagen y placeholder */
 .photo {
   width: 120px;
   height: 120px;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
 
 .photo-img {
@@ -38,87 +56,109 @@
 }
 
 .photo-placeholder {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #666;
 }
 
 .info h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.info p {
+  margin: 4px 0;
+  color: #555;
 }
 
 .institution {
   font-style: italic;
-  color: #555;
+  color: #4b5563;
 }
 
+
+/* ==========================================
+   SECCIONES
+   ========================================== */
 .cv-section h3 {
-  border-left: 4px solid #2f3c7e;
-  padding-left: 10px;
-  margin-top: 1rem;
+  border-left: 5px solid #2f3c7e;
+  padding-left: 12px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   color: #2f3c7e;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .cv-section h4 {
   margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
+  font-size: 1.15rem;
 }
 
-ol, ul {
-  margin: 0.5rem 0 0.5rem 1.5rem;
+.cv-section ol,
+.cv-section ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
 }
 
+.cv-section li {
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   HITOS
+   ========================================== */
 .milestone-description {
-  margin: 4px 0 8px 0;
+  margin-top: 4px;
   color: #555;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.4;
 }
 
-.cv-footer {
-  margin-top: 2rem;
-  text-align: right;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 10px;
-}
-
-.export-btn,
-.share-btn {
-  background: #2f3c7e;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.share-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-}
-
-.share-btn i {
-  font-size: 16px;
-}
-
-.export-btn:hover,
-.share-btn:hover {
-  background: #4055a3;
-}
-
+/* ==========================================
+   NO DATA
+   ========================================== */
 .no-data {
   text-align: center;
   margin-top: 2rem;
   color: #777;
+  font-style: italic;
 }
 
+/* ==========================================
+   LOADING STATE
+   ========================================== */
 .loading {
   text-align: center;
   color: #555;
   font-style: italic;
   margin-top: 2rem;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 900px) {
+  .cv-container {
+    padding: 1.8rem 2rem;
+  }
+
+  .cv-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .cv-container {
+    padding: 1.4rem;
+    border-radius: 12px;
+  }
+
+  .info h2 {
+    font-size: 1.5rem;
+  }
 }

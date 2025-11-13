@@ -1,31 +1,39 @@
+/* ==========================================
+   CONTENEDOR PRINCIPAL
+   ========================================== */
 .timeline-container {
-  max-width: 1200px; /* antes 800px */
   width: 100%;
+  max-width: 900px; /* Igual que CV */
   margin: 2rem auto;
   background: #fff;
   padding: 2.5rem 3rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   font-family: "Segoe UI", sans-serif;
   box-sizing: border-box;
-}
 
-/* Responsive */
-@media (max-width: 992px) {
-  .timeline-container {
-    max-width: 100%;
-    padding: 1.5rem 1.8rem;
-  }
+  /* Previene overflow de textos largos */
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 
-h2 {
+/* ==========================================
+   TÍTULO
+   ========================================== */
+.timeline-container h2 {
   margin-bottom: 1.5rem;
   color: #2f3c7e;
-  border-left: 4px solid #2f3c7e;
-  padding-left: 10px;
+  border-left: 5px solid #2f3c7e;
+  padding-left: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
+
+/* ==========================================
+   LÍNEA VERTICAL
+   ========================================== */
 .timeline {
   position: relative;
   margin-left: 2rem;
@@ -33,6 +41,10 @@ h2 {
   border-left: 3px solid #d1d5db;
 }
 
+
+/* ==========================================
+   ITEM DE LA LÍNEA DE TIEMPO
+   ========================================== */
 .timeline-item {
   display: flex;
   align-items: flex-start;
@@ -40,15 +52,18 @@ h2 {
   position: relative;
 }
 
+/* Fecha */
 .timeline-date {
-  width: 100px;
+  width: 110px;
   text-align: right;
   margin-right: 20px;
   color: #555;
   font-size: 0.9rem;
   flex-shrink: 0;
+  word-break: break-word;
 }
 
+/* Punto azul */
 .timeline-dot {
   width: 14px;
   height: 14px;
@@ -59,29 +74,75 @@ h2 {
   top: 4px;
 }
 
+
+/* ==========================================
+   CONTENIDO DEL ITEM
+   ========================================== */
 .timeline-content {
   background: #f8f9fa;
   border-radius: 8px;
-  padding: 0.8rem 1rem;
+  padding: 1rem 1.2rem;
   flex: 1;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+  /* Forzar saltos de línea */
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .timeline-content h4 {
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.4rem 0;
   color: #111;
   font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.4;
 }
 
 .timeline-content p {
-  margin: 0;
+  margin: 0.2rem 0;
   color: #444;
   font-size: 0.9rem;
+  line-height: 1.4;
+
+  /* También fuerza wrapping */
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
+
+/* ==========================================
+   NO DATA
+   ========================================== */
 .no-data {
   text-align: center;
   margin-top: 1rem;
   color: #777;
   font-style: italic;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 850px) {
+  .timeline-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeline-date {
+    text-align: left;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .timeline-container {
+    padding: 1.6rem;
+    border-radius: 12px;
+  }
+
+  .timeline-content {
+    padding: 0.8rem;
+  }
 }
