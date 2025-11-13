@@ -9,6 +9,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { FormComponent } from './pages/form/form.component';
+import { CvComponent } from './pages/cv/cv.component';
+import { TimelineComponent } from './pages/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { FormComponent } from './pages/form/form.component';
     DashboardComponent,
     LayoutComponent,
     FormComponent,
+    CvComponent,
+    TimelineComponent,
   ],
   imports: [
     BrowserModule,

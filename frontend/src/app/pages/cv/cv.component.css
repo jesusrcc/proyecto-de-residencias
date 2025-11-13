@@ -1,0 +1,88 @@
+.cv-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  margin: 2rem auto;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+}
+
+.cv-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.photo-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: #666;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.institution {
+  font-style: italic;
+  color: #555;
+}
+
+.cv-section h3 {
+  border-left: 4px solid #2f3c7e;
+  padding-left: 10px;
+  margin-top: 1rem;
+  color: #2f3c7e;
+}
+
+.cv-section h4 {
+  margin-top: 1.2rem;
+  font-weight: 600;
+}
+
+ol, ul {
+  margin: 0.5rem 0 0.5rem 1.5rem;
+}
+
+.milestone-description {
+  margin: 4px 0 8px 0;
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.cv-footer {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.export-btn {
+  background: #2f3c7e;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.export-btn:hover {
+  background: #4055a3;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 2rem;
+  color: #777;
+}

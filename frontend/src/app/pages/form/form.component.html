@@ -60,6 +60,11 @@
           placeholder="Título de la publicación"
         />
         <input
+          [(ngModel)]="pub.journal"
+          name="pubJournal{{ i }}"
+          placeholder="Revista"
+        />
+        <input
           type="date"
           [(ngModel)]="pub.date"
           name="pubDate{{ i }}"
@@ -114,7 +119,7 @@
         <input
           [(ngModel)]="milestone.title"
           name="mileTitle{{ i }}"
-          placeholder="Título o evento"
+          placeholder="Título del hito"
         />
         <input
           type="date"
@@ -132,6 +137,11 @@
           <option value="Curso">Curso</option>
           <option value="Otro">Otro</option>
         </select>
+        <input
+          [(ngModel)]="milestone.description"
+          name="mileDescription{{ i }}"
+          placeholder="Descripción breve"
+        />
         <button type="button" class="remove-btn" (click)="removeItem('milestones', i)">Eliminar</button>
       </div>
 

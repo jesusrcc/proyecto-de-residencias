@@ -4,6 +4,7 @@
 
 export interface Publication {
   title?: string;
+  journal?: string;
   date?: string;
 }
 
@@ -17,6 +18,7 @@ export interface Milestone {
   title?: string;
   date?: string;   // o Date si en backend viene como ISO
   type?: string;
+  description?: string;
 }
 
 // ======================

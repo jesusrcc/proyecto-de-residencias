@@ -1,0 +1,60 @@
+<div class="cv-container" *ngIf="user">
+  <div class="cv-header">
+    <div class="photo-placeholder">📸</div>
+
+    <div class="info">
+      <h2>{{ user.name }} {{ user.firstName }} {{ user.lastName }}</h2>
+      <p class="institution">
+        <strong>Departamento / Institución</strong> — 
+        {{ user.country || ' ' }}
+      </p>
+      <p>ORCID: {{ user.orcid || '—' }}</p>
+      <p>{{ user.email }}</p>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h3>Trayectoria académica</h3>
+
+    <!-- ================= PRODUCCIÓN ACADÉMICA ================= -->
+    <h4>Producción académica</h4>
+    <ol>
+      <li *ngFor="let pub of user.publications">
+        <strong>{{ pub.title }}</strong>
+        <span *ngIf="pub.journal">, {{ pub.journal }}</span>
+        <span *ngIf="pub.date"> — {{ formatDate(pub.date) }}</span>
+      </li>
+    </ol>
+
+    <!-- ================= CURSOS Y FORMACIÓN ================= -->
+    <h4>Cursos y formación</h4>
+    <ul>
+      <li *ngFor="let c of user.courses">
+        <strong>{{ c.title }}</strong>
+        <span *ngIf="c.institution"> — {{ c.institution }}</span>
+        <span *ngIf="c.date"> ({{ formatDate(c.date) }})</span>
+      </li>
+    </ul>
+
+    <!-- ================= HITOS ================= -->
+    <h4>Hitos</h4>
+    <ul>
+      <li *ngFor="let h of user.milestones">
+        <span *ngIf="h.date">{{ formatDate(h.date) }} — </span>
+        <strong>{{ h.title }}</strong>
+        <span *ngIf="h.type"> ({{ h.type }})</span>
+        <p *ngIf="h.description" class="milestone-description">
+          {{ h.description }}
+        </p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="cv-footer">
+    <button class="export-btn">Exportar a PDF</button>
+  </div>
+</div>
+
+<div *ngIf="!user" class="no-data">
+  <p>No hay datos disponibles. Completa primero tu formulario de investigador.</p>
+</div>

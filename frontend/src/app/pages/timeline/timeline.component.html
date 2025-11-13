@@ -1,0 +1,19 @@
+<div class="timeline-container">
+  <h2>Línea de tiempo</h2>
+
+  <div *ngIf="milestones.length; else noData" class="timeline">
+    <div class="timeline-item" *ngFor="let milestone of milestones">
+      <div class="timeline-date">{{ formatDate(milestone.date) }}</div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h4>{{ milestone.title }}</h4>
+        <p *ngIf="milestone.type">{{ milestone.type }}</p>
+        <p *ngIf="milestone.description">{{ milestone.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <p class="no-data">No hay hitos registrados. Agrega algunos en el formulario de investigador.</p>
+  </ng-template>
+</div>

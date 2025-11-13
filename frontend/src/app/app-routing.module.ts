@@ -6,6 +6,8 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { FormComponent } from './pages/form/form.component';
+import { CvComponent } from './pages/cv/cv.component';
+import { TimelineComponent } from './pages/timeline/timeline.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,6 +24,8 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'formulario', component: FormComponent},
+      { path: 'cv', component: CvComponent },
+      { path: 'timeline', component: TimelineComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
