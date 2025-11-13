@@ -1,13 +1,25 @@
 .cv-container {
   background: #fff;
-  padding: 2rem;
+  padding: 2.5rem 3rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  max-width: 900px;
+  max-width: 1200px; /* antes 900px */
+  width: 100%;
   margin: 2rem auto;
   font-family: "Segoe UI", sans-serif;
   color: #333;
+  box-sizing: border-box;
 }
+
+/* Ajuste responsive */
+@media (max-width: 992px) {
+  .cv-container {
+    max-width: 100%;
+    padding: 1.5rem 1.8rem;
+  }
+}
+
+
 
 .cv-header {
   display: flex;

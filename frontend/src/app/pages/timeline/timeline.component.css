@@ -1,12 +1,23 @@
 .timeline-container {
-  max-width: 800px;
+  max-width: 1200px; /* antes 800px */
+  width: 100%;
   margin: 2rem auto;
   background: #fff;
-  padding: 2rem;
+  padding: 2.5rem 3rem;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
 }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .timeline-container {
+    max-width: 100%;
+    padding: 1.5rem 1.8rem;
+  }
+}
+
 
 h2 {
   margin-bottom: 1.5rem;
