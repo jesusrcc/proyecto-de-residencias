@@ -6,6 +6,7 @@ import { AppModule } from './modules/app.module';
 import * as express from 'express';
 import { join } from 'path';
 import { ValidationPipe } from '@nestjs/common';
+import * as bodyParser from 'body-parser';  // ⬅ AGREGADO
 
 // Cargar .env desde la raíz del proyecto
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
@@ -20,6 +21,10 @@ async function bootstrap() {
   console.log(' Iniciando servidor con base de datos:', process.env.DB_NAME);
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+
+  // ⬅⬅⬅ AUMENTAR LÍMITE PARA BASE64 / IMÁGENES
+  app.use(bodyParser.json({ limit: '10mb' }));
+  app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
   // habilitar validación automática usando DTOs y class-validator
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));

@@ -11,6 +11,9 @@ import html2canvas from 'html2canvas';
 export class CvComponent implements OnInit {
   user?: User;
   @ViewChild('cvContent') cvContent!: ElementRef;
+  message = '';
+  messageType: 'success' | 'error' | 'warning' | 'info' | '' = '';
+
 
   constructor() {}
 
@@ -36,6 +39,8 @@ export class CvComponent implements OnInit {
   async exportPDF(): Promise<void> {
     if (!this.cvContent) return;
 
+    this.showMessage('📄 Generando PDF...', 'info');
+
     const element = this.cvContent.nativeElement;
     const canvas = await html2canvas(element, { scale: 2 });
     const imgData = canvas.toDataURL('image/png');
@@ -59,12 +64,24 @@ export class CvComponent implements OnInit {
     }
 
     pdf.save(`CV_${this.user?.name || 'investigador'}.pdf`);
+    this.showMessage('✅ PDF generado con éxito', 'success');
   }
 
   /** ✅ Genera link compartible (simulado por ahora) */
   shareCV(): void {
     const publicUrl = `${window.location.origin}/cv-view/${this.user?.id || 'demo'}`;
     navigator.clipboard.writeText(publicUrl);
-    alert('🔗 Link copiado: ' + publicUrl);
+    this.showMessage('🔗 Link copiado', 'info');
   }
+  
+  showMessage(text: string, type: 'success' | 'error' | 'warning' | 'info') {
+    this.message = text;
+    this.messageType = type;
+
+    setTimeout(() => {
+      this.message = '';
+      this.messageType = '';
+    }, 2500);
+  }
+
 }

@@ -11,7 +11,6 @@ export class FormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('galleryInput') galleryInput!: ElementRef<HTMLInputElement>;
 
-
   user: User = {
     email: '',
     name: '',
@@ -24,10 +23,12 @@ export class FormComponent implements OnInit {
     publications: [],
     courses: [],
     milestones: [],
+    gallery: [],
   };
 
   loading = false;
   message = '';
+  messageType: 'success' | 'error' | 'warning' | 'info' | '' = '';
   today = new Date().toISOString().split('T')[0];
 
   constructor(private userService: UserService) {}
@@ -42,6 +43,7 @@ export class FormComponent implements OnInit {
         publications: parsed.publications ?? [],
         courses: parsed.courses ?? [],
         milestones: parsed.milestones ?? [],
+        gallery: parsed.gallery ?? []
       };
     }
   }
@@ -55,15 +57,27 @@ export class FormComponent implements OnInit {
     if (!input.files?.length) return;
 
     const file = input.files[0];
+
+    const maxMb = 2;
+    if (file.size > maxMb * 1024 * 1024) {
+      this.user.photoUrl = '';  // 🔥 limpiar modelo
+      input.value = '';         // limpiar input
+      this.showMessage(`La imagen es demasiado grande (máximo ${maxMb}MB).`, 'error');
+      return;
+    }
+
     const allowedTypes = ['image/png', 'image/jpeg'];
     if (!allowedTypes.includes(file.type)) {
-      alert('Solo se permiten imágenes PNG o JPG.');
+      this.user.photoUrl = '';  // limpiar por seguridad
+      input.value = '';
+      this.showMessage('Solo se permiten imágenes PNG o JPG.', 'error');
       return;
     }
 
     const base64 = await this.convertToBase64(file);
     this.user.photoUrl = base64 as string;
   }
+
 
   private convertToBase64(file: File): Promise<string | ArrayBuffer | null> {
     return new Promise((resolve, reject) => {
@@ -88,43 +102,74 @@ export class FormComponent implements OnInit {
 
     this.userService.updateProfile(this.user).subscribe({
       next: (updatedUser) => {
-        this.message = '✅ Información actualizada correctamente';
+        this.loading = false;
+
+        this.showMessage('Información actualizada correctamente', 'success');
+
         localStorage.setItem(
           'identidad_session_v1',
           JSON.stringify({ ...updatedUser, token: this.user.token })
         );
       },
+
       error: (err) => {
-        this.message = err?.error?.message || 'Error al actualizar el perfil.';
-      },
-      complete: () => (this.loading = false),
+        this.loading = false;
+
+        let msg = err?.error?.message || 'Error al actualizar el perfil.';
+
+        // 🔥 Si es un error por tamaño de imagen
+        if (msg.includes('entity too large') || err.status === 413) {
+          msg = 'La imagen que intentas subir es demasiado grande.';
+        }
+
+        this.showMessage(msg, 'error');
+      }
     });
   }
+
   triggerGalleryInput(): void {
-  this.galleryInput.nativeElement.click();
-}
-
-async onGallerySelected(event: Event): Promise<void> {
-  const input = event.target as HTMLInputElement;
-  if (!input.files?.length) return;
-
-  const files = Array.from(input.files);
-  
-  for (const file of files) {
-    const base64 = await this.convertToBase64(file);
-    this.user.gallery = this.user.gallery ?? [];
-    this.user.gallery.push(base64 as string);
+    this.galleryInput.nativeElement.click();
   }
 
-  input.value = ''; // limpiar input
-}
+  async onGallerySelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
 
-removeGalleryImage(index: number): void {
-  this.user.gallery?.splice(index, 1);
-}
-deleteProfilePhoto(event: Event): void {
-  event.stopPropagation(); // evita abrir selector de archivo
-  this.user.photoUrl = '';
-}
+    const files = Array.from(input.files);
+    const maxMb = 2;
 
+    for (const file of files) {
+      if (file.size > maxMb * 1024 * 1024) {
+        this.showMessage(`Una de las imágenes supera el límite de ${maxMb}MB.`, 'error');
+        continue; // 🔥 NO se agrega a gallery
+      }
+
+      const base64 = await this.convertToBase64(file);
+
+      this.user.gallery = this.user.gallery ?? [];
+      this.user.gallery.push(base64 as string);
+    }
+
+    input.value = ''; // limpiar input
+  }
+
+
+  removeGalleryImage(index: number): void {
+    this.user.gallery?.splice(index, 1);
+  }
+
+  deleteProfilePhoto(event: Event): void {
+    event.stopPropagation();
+    this.user.photoUrl = '';
+  }
+
+  showMessage(text: string, type: 'success' | 'error' | 'warning' | 'info') {
+    this.message = text;
+    this.messageType = type;
+
+    setTimeout(() => {
+      this.message = '';
+      this.messageType = '';
+    }, 3000);
+  }
 }

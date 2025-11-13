@@ -295,6 +295,15 @@
       {{ loading ? 'Guardando...' : 'Guardar cambios' }}
     </button>
 
-    <p class="success" *ngIf="message">{{ message }}</p>
+    <!-- 🔔 TOAST GLOBAL PARA FORMULARIO -->
+    <div class="toast-container" *ngIf="message">
+      <div class="toast" [ngClass]="messageType">
+        <i *ngIf="messageType === 'success'" class="fa-solid fa-check"></i>
+        <i *ngIf="messageType === 'error'" class="fa-solid fa-xmark"></i>
+        <i *ngIf="messageType === 'warning'" class="fa-solid fa-exclamation"></i>
+        <i *ngIf="messageType === 'info'" class="fa-solid fa-info"></i>
+        {{ message }}
+      </div>
+    </div>
   </form>
 </div>

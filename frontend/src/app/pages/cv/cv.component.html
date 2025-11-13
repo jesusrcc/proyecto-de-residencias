@@ -51,6 +51,19 @@
     </ul>
   </div>
 
+    <!-- 🔔 Toast elegante y flotante -->
+  <div class="toast-container" *ngIf="message">
+    <div class="toast" [ngClass]="messageType">
+        <i *ngIf="messageType === 'success'" class="fa-solid fa-check"></i>
+        <i *ngIf="messageType === 'error'" class="fa-solid fa-xmark"></i>
+        <i *ngIf="messageType === 'warning'" class="fa-solid fa-exclamation"></i>
+        <i *ngIf="messageType === 'info'" class="fa-solid fa-info"></i>
+        {{ message }}
+    </div>
+  </div>
+
+
+
   <div class="cv-footer">
     <button class="export-btn" (click)="exportPDF()">Exportar a PDF</button>
     <button class="share-btn" (click)="shareCV()" title = "Compartir">
