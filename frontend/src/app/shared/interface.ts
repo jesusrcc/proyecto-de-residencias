@@ -37,6 +37,7 @@ export interface User {
   bio?: string;
   country?: string;
   googleScholar?: string;
+  gallery?: string[];
   publications?: Publication[];
   courses?: Course[];
   milestones?: Milestone[];

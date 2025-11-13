@@ -9,6 +9,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class FormComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('galleryInput') galleryInput!: ElementRef<HTMLInputElement>;
+
 
   user: User = {
     email: '',
@@ -98,4 +100,31 @@ export class FormComponent implements OnInit {
       complete: () => (this.loading = false),
     });
   }
+  triggerGalleryInput(): void {
+  this.galleryInput.nativeElement.click();
+}
+
+async onGallerySelected(event: Event): Promise<void> {
+  const input = event.target as HTMLInputElement;
+  if (!input.files?.length) return;
+
+  const files = Array.from(input.files);
+  
+  for (const file of files) {
+    const base64 = await this.convertToBase64(file);
+    this.user.gallery = this.user.gallery ?? [];
+    this.user.gallery.push(base64 as string);
+  }
+
+  input.value = ''; // limpiar input
+}
+
+removeGalleryImage(index: number): void {
+  this.user.gallery?.splice(index, 1);
+}
+deleteProfilePhoto(event: Event): void {
+  event.stopPropagation(); // evita abrir selector de archivo
+  this.user.photoUrl = '';
+}
+
 }

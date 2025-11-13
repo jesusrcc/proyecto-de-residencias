@@ -8,24 +8,46 @@
 
       <div class="profile-header">
         <div class="photo-section">
-          <div class="photo-upload" (click)="triggerFileInput()">
+
+          <!-- Caja igual al botón de AGREGAR -->
+          <div class="profile-upload-box" (click)="triggerFileInput()">
+
+            <!-- Foto cargada -->
             <img
               *ngIf="user.photoUrl"
               [src]="user.photoUrl"
+              class="profile-photo"
               alt="Foto del investigador"
-              class="photo-preview"
             />
-            <div *ngIf="!user.photoUrl" class="photo-placeholder">📸</div>
-            <input
-              type="file"
-              #fileInput
-              accept="image/png, image/jpeg"
-              (change)="onFileSelected($event)"
-              hidden
-            />
+
+            <!-- Placeholder estilo “+” -->
+            <div *ngIf="!user.photoUrl" class="profile-placeholder">
+              +
+            </div>
+
+            <!-- Botón eliminar -->
+            <button
+              *ngIf="user.photoUrl"
+              type="button"
+              class="remove-profile-btn"
+              (click)="deleteProfilePhoto($event)">
+              ✖
+            </button>
+
+            <input type="file"
+                  #fileInput
+                  accept="image/*"
+                  hidden
+                  (change)="onFileSelected($event)" />
           </div>
-          <small class="photo-hint">Haz clic para subir o cambiar la foto</small>
+
+          <small class="photo-hint">
+            Haz clic para subir o cambiar la foto
+          </small>
+
         </div>
+
+
 
         <!-- 🧾 Campos personales -->
         <div class="personal-info">
@@ -238,6 +260,35 @@
       </div>
 
       <button type="button" class="add-btn" (click)="addItem('milestones')">Agregar</button>
+    </fieldset>
+      <!-- ================= GALERÍA DE RECONOCIMIENTOS ================= -->
+    <fieldset>
+      <legend>Galería de fotos (reconocimientos, diplomas, etc.)</legend>
+
+      <div class="gallery-container">
+        <div class="gallery-grid">
+          <div class="gallery-item" *ngFor="let img of user.gallery; let i = index">
+            <img [src]="img" class="gallery-preview">
+
+            <button type="button"
+                    class="remove-gallery-btn"
+                    (click)="removeGalleryImage(i)">
+              ✖
+            </button>
+          </div>
+
+          <!-- Botón agregar -->
+          <div class="gallery-add" (click)="triggerGalleryInput()">
+            <span>+</span>
+            <input type="file"
+                  accept="image/*"
+                  multiple
+                  #galleryInput
+                  hidden
+                  (change)="onGallerySelected($event)">
+          </div>
+        </div>
+      </div>
     </fieldset>
 
     <button type="submit" [disabled]="investigadorForm.invalid || loading">

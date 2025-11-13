@@ -28,6 +28,9 @@ export class User extends BaseEntity {
   @Column({ type: 'longtext', nullable: true })
   photoUrl?: string;
 
+  @Column({ type: 'simple-json', nullable: true })
+  gallery?: string[];
+
   @Column({ nullable: true })
   country?: string;
 

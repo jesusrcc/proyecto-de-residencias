@@ -6,3 +6,124 @@
   border-radius: var(--radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
+
+/* ===========================
+   GALERÍA / CARRUSEL
+=========================== */
+.gallery-carousel {
+  max-width: 900px;
+  margin: 35px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.gallery-carousel h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2f3c7e;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* ===== WRAPPER ===== */
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== SLIDE ===== */
+.premium-carousel {
+  width: 100%;
+  max-width: 400px;
+  height: 230px;
+  overflow: hidden;
+  border-radius: 18px;
+  position: relative;
+}
+
+.carousel-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+/* Estado visible (añadido desde TS) */
+.carousel-photo.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ===== ARROWS ===== */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  color: #2f3c7e;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.arrow:hover {
+  background: #2f3c7e;
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+/* ===== DOTS ===== */
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.dot.active {
+  background: #2f3c7e;
+  transform: scale(1.2);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .premium-carousel {
+    height: 250px;
+  }
+  .arrow {
+    width: 38px;
+    height: 38px;
+  }
+}

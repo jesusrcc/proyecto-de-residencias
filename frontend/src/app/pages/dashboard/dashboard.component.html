@@ -7,3 +7,38 @@
     <button class="ghost" (click)="logout()">Cerrar sesión</button>
   </div>
 </div>
+
+<!-- ===========================
+     GALERÍA / CARRUSEL
+============================= -->
+<div class="gallery-carousel" *ngIf="user?.gallery?.length">
+  <h3>Mis reconocimientos</h3>
+
+  <div class="carousel-wrapper">
+
+    <!-- Contenedor principal -->
+    <div class="premium-carousel">
+      <img
+        #carouselImage
+        [src]="user?.gallery?.[currentIndex]"
+        class="carousel-photo"
+      />
+    </div>
+
+    <!-- Flecha derecha -->
+    <button class="arrow right" (click)="nextImage()">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Dots -->
+  <div class="dots">
+    <span
+      *ngFor="let img of user?.gallery; let i = index"
+      class="dot"
+      [class.active]="i === currentIndex"
+      (click)="goToImage(i)"
+    ></span>
+  </div>
+
+</div>
