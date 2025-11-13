@@ -25,7 +25,7 @@ export class User extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   bio?: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'longtext', nullable: true })
   photoUrl?: string;
 
   @Column({ nullable: true })

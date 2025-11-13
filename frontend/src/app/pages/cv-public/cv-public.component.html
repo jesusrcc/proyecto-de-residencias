@@ -2,7 +2,15 @@
 
 <div class="cv-container" *ngIf="!loading && user">
   <div class="cv-header">
-    <div class="photo-placeholder">📸</div>
+    <div class="photo">
+      <img
+        *ngIf="user.photoUrl"
+        [src]="user.photoUrl"
+        alt="Foto del investigador"
+        class="photo-img"
+      />
+      <div *ngIf="!user.photoUrl" class="photo-placeholder">📸</div>
+    </div>
 
     <div class="info">
       <h2>{{ user.name }} {{ user.firstName }} {{ user.lastName }}</h2>

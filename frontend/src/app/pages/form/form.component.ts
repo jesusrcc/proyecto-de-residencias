@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { User } from 'src/app/shared/interface';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -8,6 +8,8 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   user: User = {
     email: '',
     name: '',
@@ -40,6 +42,34 @@ export class FormComponent implements OnInit {
         milestones: parsed.milestones ?? [],
       };
     }
+  }
+
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  async onFileSelected(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+
+    const file = input.files[0];
+    const allowedTypes = ['image/png', 'image/jpeg'];
+    if (!allowedTypes.includes(file.type)) {
+      alert('Solo se permiten imágenes PNG o JPG.');
+      return;
+    }
+
+    const base64 = await this.convertToBase64(file);
+    this.user.photoUrl = base64 as string;
+  }
+
+  private convertToBase64(file: File): Promise<string | ArrayBuffer | null> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   }
 
   addItem(type: 'publications' | 'courses' | 'milestones'): void {

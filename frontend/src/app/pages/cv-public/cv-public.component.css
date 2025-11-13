@@ -18,7 +18,8 @@
   margin-bottom: 1.5rem;
 }
 
-.photo-placeholder {
+/* Imagen y placeholder */
+.photo {
   width: 120px;
   height: 120px;
   border-radius: 8px;
@@ -26,6 +27,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-placeholder {
   font-size: 2rem;
   color: #666;
 }
@@ -66,29 +78,6 @@ ol, ul {
 .cv-footer {
   margin-top: 2rem;
   text-align: right;
-}
-
-.export-btn {
-  background: #2f3c7e;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.export-btn:hover {
-  background: #4055a3;
-}
-
-.no-data {
-  text-align: center;
-  margin-top: 2rem;
-  color: #777;
-}
-.cv-footer {
-  margin-top: 2rem;
-  text-align: right;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -119,4 +108,17 @@ ol, ul {
 .export-btn:hover,
 .share-btn:hover {
   background: #4055a3;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 2rem;
+  color: #777;
+}
+
+.loading {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+  margin-top: 2rem;
 }

@@ -33,6 +33,7 @@ export interface User {
   firstName?: string;
   lastName?: string;
   orcid?: string;
+  photoUrl?: string;
   bio?: string;
   country?: string;
   googleScholar?: string;
