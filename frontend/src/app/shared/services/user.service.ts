@@ -20,4 +20,8 @@ export class UserService extends ApiService<User> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     return this.http.put<User>(`${this.uri}/${user.id}`, user, { headers });
   }
+  getPublicProfile(id: string) {
+  return this.http.get<User>(`${this.uri}/public/${id}`);
+}
+
 }

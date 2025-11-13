@@ -11,6 +11,7 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { FormComponent } from './pages/form/form.component';
 import { CvComponent } from './pages/cv/cv.component';
 import { TimelineComponent } from './pages/timeline/timeline.component';
+import { CvPublicComponent } from './pages/cv-public/cv-public.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TimelineComponent } from './pages/timeline/timeline.component';
     FormComponent,
     CvComponent,
     TimelineComponent,
+    CvPublicComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { FormComponent } from './pages/form/form.component';
 import { CvComponent } from './pages/cv/cv.component';
 import { TimelineComponent } from './pages/timeline/timeline.component';
+import { CvPublicComponent } from './pages/cv-public/cv-public.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   // Páginas públicas
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'cv-view/:id', component: CvPublicComponent },
 
   // Páginas privadas con layout
   {

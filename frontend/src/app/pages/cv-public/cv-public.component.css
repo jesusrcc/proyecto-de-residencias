@@ -66,49 +66,57 @@ ol, ul {
 .cv-footer {
   margin-top: 2rem;
   text-align: right;
+}
+
+.export-btn {
+  background: #2f3c7e;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.export-btn:hover {
+  background: #4055a3;
+}
+
+.no-data {
+  text-align: center;
+  margin-top: 2rem;
+  color: #777;
+}
+.cv-footer {
+  margin-top: 2rem;
+  text-align: right;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
 }
 
-/* === Botones === */
 .export-btn,
 .share-btn {
   background: #2f3c7e;
-  color: #fff;
+  color: white;
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.share-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Hover más suave */
-.export-btn:hover,
-.share-btn:hover {
-  background: #4055a3;
-  transform: scale(1.03);
-}
-
-/* === Botón de compartir más fino y proporcional === */
-.share-btn {
   width: 40px;
-  height: 36px;
-  padding: 0;
 }
 
 .share-btn i {
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.85); /* menos blanco, más elegante */
-  font-weight: 400; /* afinado */
+  font-size: 16px;
 }
 
-/* === Botón principal === */
-.export-btn {
-  font-weight: 500;
-  font-size: 14px;
+.export-btn:hover,
+.share-btn:hover {
+  background: #4055a3;
 }

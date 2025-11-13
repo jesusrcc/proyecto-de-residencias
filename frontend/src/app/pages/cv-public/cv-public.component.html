@@ -1,4 +1,6 @@
-<div class="cv-container" *ngIf="user" #cvContent>
+<div *ngIf="loading" class="loading">Cargando CV...</div>
+
+<div class="cv-container" *ngIf="!loading && user">
   <div class="cv-header">
     <div class="photo-placeholder">📸</div>
 
@@ -46,15 +48,8 @@
       </li>
     </ul>
   </div>
-
-  <div class="cv-footer">
-    <button class="export-btn" (click)="exportPDF()">Exportar a PDF</button>
-    <button class="share-btn" (click)="shareCV()" title = "Compartir">
-      <i class="fa-regular fa-share-from-square"></i>
-    </button>
-  </div>
 </div>
 
-<div *ngIf="!user" class="no-data">
-  <p>No hay datos disponibles. Completa primero tu formulario de investigador.</p>
+<div *ngIf="!loading && !user" class="no-data">
+  <p>Este CV no está disponible o ha sido eliminado.</p>
 </div>
