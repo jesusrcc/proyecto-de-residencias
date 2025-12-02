@@ -14,6 +14,16 @@
       </p>
       <p>ORCID: {{ user.orcid || '—' }}</p>
       <p>{{ user.email }}</p>
+      <p *ngIf="user.googleScholar">
+        Google Scholar: 
+        <a [href]="user.googleScholar" target="_blank">
+          {{ user.googleScholar }}
+        </a>
+      </p>
+
+      <p *ngIf="user.snip">
+        SNIP: {{ user.snip }}
+      </p>
     </div>
   </div>
 
