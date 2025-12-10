@@ -20,6 +20,7 @@ export class FormComponent implements OnInit {
     orcid: '',
     bio: '',
     googleScholar: '',
+    snip: '',
     publications: [],
     courses: [],
     milestones: [],
@@ -43,7 +44,8 @@ export class FormComponent implements OnInit {
         publications: parsed.publications ?? [],
         courses: parsed.courses ?? [],
         milestones: parsed.milestones ?? [],
-        gallery: parsed.gallery ?? []
+        gallery: parsed.gallery ?? [],
+        snip: parsed.snip ?? ''
       };
     }
   }

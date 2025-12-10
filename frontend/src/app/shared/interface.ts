@@ -42,6 +42,7 @@ export interface User {
   courses?: Course[];
   milestones?: Milestone[];
   token?: string;
+  snip?: string;
 }
 
 // ======================
