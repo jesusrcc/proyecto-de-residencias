@@ -40,6 +40,12 @@ export class User extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   snip?: string;
 
+  @Column({ nullable: true })
+  phone?: string;
+
+  @Column({ nullable: true })
+  socialLink?: string;
+
   @Column({ type: 'simple-json', nullable: true })
   publications?: Record<string, any>[];
 
@@ -48,4 +54,5 @@ export class User extends BaseEntity {
 
   @Column({ type: 'simple-json', nullable: true })
   milestones?: Record<string, any>[];
+  
 }

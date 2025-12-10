@@ -124,7 +124,27 @@
               </small>
             </div>
           </div>
+          <div class="row">
+            <div class="field">
+              <label>Teléfono</label>
+              <input
+                [(ngModel)]="user.phone"
+                name="telefono"
+                type="text"
+                placeholder="+52 999 999 9999"
+              />
+            </div>
 
+            <div class="field">
+              <label>Red social / enlace profesional</label>
+              <input
+                [(ngModel)]="user.socialLink"
+                name="socialLink"
+                type="url"
+                placeholder="https://linkedin.com/in/usuario"
+              />
+            </div>
+          </div>
           <div class="row">
             <div class="field">
               <label>ORCID</label>

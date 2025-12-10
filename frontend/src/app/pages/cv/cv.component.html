@@ -14,6 +14,14 @@
       </p>
       <p>ORCID: {{ user.orcid || '—' }}</p>
       <p>{{ user.email }}</p>
+      <p *ngIf="user.phone">
+        📞 {{ user.phone }}
+      </p>
+      <p *ngIf="user.socialLink">
+        🌐 <a [href]="user.socialLink" target="_blank">
+          {{ user.socialLink }}
+        </a>
+      </p>
       <p *ngIf="user.googleScholar">
         Google Scholar: 
         <a [href]="user.googleScholar" target="_blank">
