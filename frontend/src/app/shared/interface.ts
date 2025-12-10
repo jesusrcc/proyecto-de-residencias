@@ -43,6 +43,8 @@ export interface User {
   milestones?: Milestone[];
   token?: string;
   snip?: string;
+  phone?: string;
+  socialLink?: string;
 }
 
 // ======================

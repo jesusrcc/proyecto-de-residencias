@@ -21,6 +21,8 @@ export class FormComponent implements OnInit {
     bio: '',
     googleScholar: '',
     snip: '',
+    phone: '',
+    socialLink: '',
     publications: [],
     courses: [],
     milestones: [],
