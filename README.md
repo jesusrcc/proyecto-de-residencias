@@ -81,11 +81,11 @@ No se utiliza ng serve, ya que es exclusivo para entornos de desarrollo.
 
 ## Capturas de Pantalla
 
-Inicio de sesión
-screenshots/login.png
+### Inicio de sesión
+![Inicio de sesión](screenshots/login.png)
 
-Panel principal
-screenshots/dashboard.png
+### Panel principal
+![Panel principal](screenshots/dashboard.png)
 
 ---
 
