@@ -1,55 +1,102 @@
-DISEÑO E IMPLEMENTACION DE UNA PLATAFORMA DE GESTION DE IDENTIDAD DIGITAL PARA LA COMUNIDAD ACADEMICA: SISTEMA INTEGRAL DE TRAYECTORIAS PROFESIONALES Y SU VISUALIZACION EN MULTIPLES PLATAFORMAS
-Descripción
-Este proyecto corresponde al desarrollo de un sistema web realizado como parte del proyecto de residencias profesionales de la carrera de Ingeniería en Sistemas Computacionales. El sistema tiene como objetivo principal gestionar información de manera eficiente mediante una arquitectura cliente-servidor.
-El proyecto está dividido en dos partes principales: frontend y backend, los cuales se comunican a través de peticiones HTTP.
-Objetivo General
-Desarrollar un sistema web funcional que permita la correcta gestión de información, aplicando buenas prácticas de desarrollo de software y utilizando tecnologías modernas tanto en el frontend como en el backend.
-Tecnologías Utilizadas
-Frontend
-•	Angular
-•	TypeScript
-•	HTML5
-•	CSS3
-Backend
-•	Node.js
-•	NestJS
-•	TypeScript
-•	MySQL
-Herramientas
-•	Visual Studio Code
-•	Git y GitHub
-•	Postman (pruebas de API)
- Estructura del Proyecto
-proyecto-de-residencias/
-│
-├── backend/        # API y lógica del servidor
-├── frontend/       # Interfaz de usuario
-├── package.json    # Dependencias del proyecto
-└── README.md       # Documentación del proyecto
+# Proyecto de Residencias – Plataforma de Identidad Digital
 
-Instalación y Ejecución
-Backend
-1.	Entrar a la carpeta backend:
-2.	cd backend
-3.	Instalar dependencias:
-4.	npm install
-5.	Configurar el archivo .env
-6.	Ejecutar el servidor:
-7.	npm run start:dev
-El backend se ejecuta por defecto en el puerto 3000.
-Frontend
-1.	Entrar a la carpeta frontend:
-2.	cd frontend
-3.	Instalar dependencias:
-4.	npm install
-5.	Ejecutar la aplicación:
-6.	ng serve
-La aplicación se ejecuta en http://localhost:4200.
-Autor
+## Descripción
+Este proyecto corresponde al desarrollo de una plataforma de identidad digital realizada como parte de las Residencias Profesionales de la carrera de Ingeniería en Sistemas Computacionales.
+
+El sistema sigue una arquitectura cliente-servidor, donde el frontend consume una API REST desarrollada en el backend. La plataforma permite la gestión y autenticación de usuarios, así como el manejo seguro de la información.
+
+---
+
+## Objetivo General
+Desarrollar y desplegar una plataforma web funcional para la gestión de identidad digital, aplicando buenas prácticas de desarrollo de software y considerando un entorno de producción real.
+
+---
+
+## Tecnologías Utilizadas
+
+### Frontend
+- Angular
+- TypeScript
+- HTML5
+- CSS3
+
+### Backend
+- Node.js
+- NestJS
+- TypeScript
+- MySQL
+
+### Herramientas
+- Git
+- GitHub
+- Visual Studio Code
+- Postman
+- Nginx
+
+---
+
+## Estructura del Proyecto y Despliegue en Entorno de Producción
+
+proyecto-de-residencias/
+├── backend/        API REST y lógica del servidor
+├── frontend/       Aplicación Angular
+├── screenshots/    Capturas de pantalla del sistema
+└── README.md       Documentación del proyecto
+
+## DESPLIEGUE EN ENTORNO DE PRODUCCIÓN
+
+## BACKEND (NestJS)
+
+1. Acceder a la carpeta del backend
+   cd backend
+
+2. Instalar dependencias
+   npm install
+
+3. Configurar variables de entorno en el archivo .env
+
+4. Compilar el proyecto
+   npm run build
+
+5. Ejecutar el servidor en modo producción
+   npm run start
+
+## El backend queda disponible en el puerto configurado en el servidor.
+
+## FRONTEND (Angular)
+
+1. Acceder a la carpeta del frontend
+   cd frontend
+
+2. Instalar dependencias
+   npm install
+
+3. Generar la versión de producción
+   npm run build
+
+## Este comando genera la carpeta dist/, la cual debe ser desplegada en un servidor web como Nginx o Apache.
+No se utiliza ng serve, ya que es exclusivo para entornos de desarrollo.
+
+---
+
+## Capturas de Pantalla
+
+Inicio de sesión
+screenshots/login.png
+
+Panel principal
+screenshots/dashboard.png
+
+---
+
+## Autor
 Nombre: Jesús Roberto Canul Cocom
 Carrera: Ingeniería en Sistemas Computacionales
 Proyecto: Residencias Profesionales
-Estado del Proyecto
-Finalizado 
- Contacto
-Para cualquier duda o aclaración relacionada con el proyecto, se puede contactar al autor a través de GitHub.
+
+---
+
+## Estado del Proyecto
+Listo para validación y despliegue en entorno de producción.
+
+
